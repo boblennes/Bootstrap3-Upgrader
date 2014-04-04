@@ -1,0 +1,69 @@
+<!doctype html>
+
+<html>
+  
+  <head>
+    <title>Upgrade Bootstrap 2 HTML to Bootstrap 3</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" value="A tool for upgrading from Bootstrap 2.3 to Bootstrap 3.1">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.min.js"></script>
+    <script src="lib/dom_html.js"></script>
+    <script src="src/upgrader.js"></script>
+    <script src="src/app.js"></script>
+    <style>
+      textarea.form-control { font-size: 11px; font-family: monospace; }
+      footer { margin: 30px 0; padding-top: 10px; border-top: 1px solid #ddd; }
+      .bs-upgrader-nav { background-color: #563d7c; }
+      .bs-upgrader-nav .navbar-brand { color: white; }
+      .bs-upgrader-nav .navbar-text, .bs-upgrader-nav .navbar-link { color: #edf; }
+    </style>
+  </head>
+  
+  <body ng-app ng-controller="ConverterCtrl">
+    <header class="navbar navbar-static-top navbar-inverse bs-upgrader-nav">
+      <div class="container">
+        <a class="navbar-brand pull-left" href="index.html">Bootstrap Upgrader</a>
+        <div class="navbar-text pull-right">for <a href="http://www.cibonfire.com" class="navbar-link">Bonfire</a></div>
+        <div class="navbar-text pull-left visible-lg">Update your Bootstrap 2.3 HTML to be 3.x compatible!</div>
+      </div>
+    </header>
+    <div class="container">
+       <p class='lead'>This tool will take care of most of the conversion, but not all. These are the rules used when it modifies your HTML; it's also a handy checklist for upgrading manually.</p>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="panel panel-primary">
+            <div class="panel-heading">2.x to 3.x Checklist</div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" ng-repeat="rule in rules">
+                <h4 class="list-group-item-heading">{{rule.title}} <span class="label pull-right" ng-class="rule.runClass" ng-show="hasRun">{{rule.runMessage}}</span></h4>
+                <div ng-bind-html-unsafe="rule.description"></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <form ng-submit="runRules()"><div class="panel panel-warning">
+            <div class="panel-heading">Source HTML or View
+            </div>
+            <textarea id="source" class="form-control" rows="10" ng-model="source"></textarea>
+            <div class="panel-footer"><button type="submit" class="btn btn-success btn-block">Convert This Code</button></div>
+          </div></form>
+          
+          <div class="panel panel-success">
+            <div class="panel-heading">Converted HTML/View
+            </div>
+            <textarea id="result" class="form-control" rows="16" ng-model="result"></textarea>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <p class='text-muted text-center'>Based largely on the converter by <a href="http://www.divshot.com/">Divshot</a>.</p>
+      </footer>
+    </div>
+  </body>
+
+</html>
